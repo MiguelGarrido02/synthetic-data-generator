@@ -1,6 +1,6 @@
 # Synthetic Banking Data Generator
 
-A robust, configurable, and statistically grounded synthetic data generator designed to simulate banking ecosystems. This tool creates realistic **Customer** and **Transaction** datasets, ideal for testing ETL pipelines, validating database schemas, and training Machine Learning models (e.g., Fraud Detection, Churn Prediction) without compromising sensitive real-world data.
+#### A robust, configurable, and statistically grounded synthetic data generator designed to simulate banking ecosystems. This tool creates realistic **Customer** and **Transaction** datasets, ideal for testing ETL pipelines, validating database schemas, and training Machine Learning models (e.g., Fraud Detection, Churn Prediction) without compromising sensitive real-world data.
 ---
 ## Key Features
 
