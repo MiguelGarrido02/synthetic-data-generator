@@ -1,0 +1,133 @@
+---
+datasets:
+  customers:
+    enabled : true
+    n_rows: 10000
+    signup_date:
+      start: '2020-01-01'
+      end: '2023-01-01'
+    income: # anual
+      mean: 60000
+      stddev: 45000
+    region:
+      values:
+        - 'ES'
+        - 'FR'
+        - 'DE'
+        - 'US'
+        - 'CN'
+      weights:
+        - 0.85
+        - 0.03
+        - 0.05
+        - 0.04
+        - 0.03
+    age:
+      min: 18
+      max: 75
+    output:
+      format: 'csv'
+      path: 'data/customers.csv'
+
+  transactions:
+    enabled: true
+
+    income_tiers:
+      low_max: 30000
+      mid_max: 70000
+
+    amount:
+      base_log_normal_sigma: 0.7
+      low_income_factor: 0.01
+      mid_income_factor: 0.02
+      high_income_factor: 0.03
+
+    customer_activity:
+      low_income_mean_tx_per_month: 5
+      mid_income_mean_tx_per_month: 15
+      high_income_mean_tx_per_month: 30
+
+    categories:
+      merchant_categories: ['groceries', 'electronics', 'clothing', 'restaurants', 'utilities', 'travel', 'entertainment', 'health', 'education', 'others']
+      weights: [0.25, 0.15, 0.15, 0.2, 0.1, 0.05, 0.05, 0.02, 0.02, 0.01]
+
+    status_distribution:
+      values: ["completed", "declined", "reversed", "pending"]
+      weights: [0.92, 0.03, 0.03, 0.02]
+
+    business_rules:
+      channels:
+        default_distribution:
+          values: ["online", "in-store", "mobile"]
+          weights: [0.5, 0.3, 0.2]
+        by_merchant_category:
+          groceries:
+            values: ["in-store", "online", "mobile"]
+            weights: [0.8, 0.1, 0.1]
+          restaurants:
+            values: ["in-store", "mobile", "online"]
+            weights: [0.7, 0.2, 0.1]
+          travel:
+            values: ["online", "mobile", "in-store"]
+            weights: [0.7, 0.2, 0.1]
+          electronics:
+            values: ["online", "in-store", "mobile"]
+            weights: [0.6, 0.3, 0.1]
+          entertainment:
+            values: ["online", "mobile", "in-store"]
+            weights: [0.5, 0.3, 0.2]
+          # resto de categorías usarán default
+
+      entry_modes:
+        default_distribution:
+          values: ["swiped", "chip", "contactless", "manual"]
+          weights: [0.4, 0.4, 0.15, 0.05]
+        by_channel:
+          in-store:
+            values: ["chip", "contactless", "swiped"]
+            weights: [0.5, 0.3, 0.2]
+          online:
+            values: ["manual", "chip", "contactless"]
+            weights: [0.7, 0.2, 0.1]
+          mobile:
+            values: ["contactless", "manual", "chip"]
+            weights: [0.6, 0.3, 0.1]
+
+      transaction_country:
+        domestic_probability_by_region:
+          ES: 0.93
+          FR: 0.92
+          DE: 0.92
+          US: 0.95
+          CN: 0.97
+
+        international_destinations_by_region:
+          ES:
+            values: ["FR", "DE", "US", "CN"]
+            weights: [0.4, 0.3, 0.2, 0.1]
+          FR:
+            values: ["ES", "DE", "US", "CN"]
+            weights: [0.4, 0.3, 0.2, 0.1]
+          DE:
+            values: ["ES", "FR", "US", "CN"]
+            weights: [0.4, 0.3, 0.2, 0.1]
+          US:
+            values: ["CA", "MX", "ES", "CN"]
+            weights: [0.4, 0.2, 0.2, 0.2]
+          CN:
+            values: ["US", "DE", "ES", "FR"]
+            weights: [0.4, 0.2, 0.2, 0.2]
+
+        default_international_destinations:
+          values: ["ES", "FR", "DE", "US", "CN"]
+          weights: [0.3, 0.2, 0.2, 0.2, 0.1]
+
+    date_range:
+      start: "2020-01-01"
+      end: "2023-01-01"
+
+    output:
+      path: 'data/transactions.csv'
+      format: 'csv'
+
+      
